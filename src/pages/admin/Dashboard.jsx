@@ -14,12 +14,10 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   
-  // Form states
   const [formData, setFormData] = useState({ title: '', category: 'apps', description: '', link: '', imageUrl: '' });
   const [articleData, setArticleData] = useState({ title: '', category: 'Company Update', content: '' });
   const [socialData, setSocialData] = useState({ facebook: '', twitter: '', instagram: '', linkedin: '', tiktok: '' });
   
-  // Edit mode states
   const [editingProductId, setEditingProductId] = useState(null);
   const [editingArticleId, setEditingArticleId] = useState(null);
   
@@ -61,38 +59,20 @@ export default function Dashboard() {
       });
       return () => unsub();
     }
-  }, [activeTab]);
-
-    useEffect(() => {
     if (activeTab === 'social') {
       const unsub = onSnapshot(doc(db, 'siteSettings', 'socials'), (docSnap) => {
-        if (docSnap.exists()) {
-          setSocialData(docSnap.data());
-        }
+        if (docSnap.exists()) setSocialData(docSnap.data());
       });
       return () => unsub();
     }
   }, [activeTab]);
-
-  const handleSaveSocials = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await setDoc(doc(db, 'siteSettings', 'socials'), socialData, { merge: true });
-      alert('Social links saved successfully!');
-    } catch (error) {
-      setErrorMsg(`Failed to save: ${error.message}`);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleLogout = () => {
     signOut(auth);
     navigate('/admin');
   };
 
-  // --- PRODUCT ACTIONS ---
+  // --- PRODUCTS ---
   const handleAddProduct = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -123,7 +103,7 @@ export default function Dashboard() {
     }
   };
 
-  // --- ARTICLE ACTIONS ---
+  // --- ARTICLES ---
   const handleAddArticle = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -153,6 +133,20 @@ export default function Dashboard() {
     }
   };
 
+  // --- SOCIALS ---
+  const handleSaveSocials = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await setDoc(doc(db, 'siteSettings', 'socials'), socialData, { merge: true });
+      alert('Social links saved successfully!');
+    } catch (error) {
+      setErrorMsg(`Failed to save: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!user) return <div style={{ padding: '10rem', textAlign: 'center' }}>Loading secure dashboard...</div>;
 
   return (
@@ -177,7 +171,7 @@ export default function Dashboard() {
 
       <main className="admin-main">
         <header className="admin-header">
-          <h1>{activeTab === 'news' ? 'News & Articles' : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
+          <h1>{activeTab === 'news' ? 'News & Articles' : activeTab === 'social' ? 'Social Media' : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
           <div style={{ color: 'var(--steel-blue)' }}>Logged in as: <strong>{user.email}</strong></div>
         </header>
 
@@ -187,9 +181,8 @@ export default function Dashboard() {
           </div>
         )}
 
-                {activeTab === 'overview' && (
+        {activeTab === 'overview' && (
           <div>
-            {/* STATS GRID */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
               <div className="admin-card" style={{ borderLeft: '4px solid var(--teal-accent)' }}>
                 <h3 style={{ color: 'var(--steel-blue)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem' }}>Portfolio Items</h3>
@@ -204,12 +197,10 @@ export default function Dashboard() {
                 <p style={{ fontSize: '2.5rem', fontWeight: '800', color: 'var(--navy-900)' }}>{enquiries.length}</p>
               </div>
             </div>
-
-            {/* RECENT ACTIVITY */}
             <div className="admin-card">
               <h2>Recent Enquiries</h2>
               {enquiries.length === 0 ? (
-                <p style={{ color: 'var(--steel-blue)' }}>No enquiries yet. When someone uses the contact form, it will appear here.</p>
+                <p style={{ color: 'var(--steel-blue)' }}>No enquiries yet.</p>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
                   {enquiries.slice(0, 3).map(msg => (
@@ -226,7 +217,15 @@ export default function Dashboard() {
               <button onClick={() => setActiveTab('messages')} style={{ marginTop: '1.5rem', background: 'transparent', border: 'none', color: 'var(--teal-accent)', fontWeight: 'bold', cursor: 'pointer' }}>View all enquiries &rarr;</button>
             </div>
           </div>
-        )} />
+        )}
+
+        {activeTab === 'portfolio' && (
+          <div className="admin-card">
+            <h2>Manage Portfolio</h2>
+            <form onSubmit={handleAddProduct} style={{ background: 'var(--surface)', padding: '2rem', borderRadius: '12px', marginBottom: '3rem' }}>
+              <div className="admin-form-group">
+                <label>Project Title</label>
+                <input type="text" placeholder="e.g. BeCom Bible" required value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} />
               </div>
               <div className="admin-form-group">
                 <label>Category</label>
@@ -244,13 +243,9 @@ export default function Dashboard() {
                 <label>Link (Google Play or Website)</label>
                 <input type="url" placeholder="https://..." value={formData.link} onChange={e => setFormData({...formData, link: e.target.value})} />
               </div>
-                            <div className="admin-form-group">
+              <div className="admin-form-group">
                 <label>Image URL (Optional)</label>
-                <input type="url" placeholder="https://example.com/image.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
-              </div>
-                            <div className="admin-form-group">
-                <label>Image URL (Optional)</label>
-                <input type="url" placeholder="https://example.com/image.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
+                <input type="text" placeholder="/assets/portfolio/apps/becom.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
               </div>
               <button type="submit" className="admin-btn" disabled={loading}>{loading ? 'Saving...' : editingProductId ? 'Update Project' : 'Add Project'}</button>
               {editingProductId && <button onClick={() => { setEditingProductId(null); setFormData({ title: '', category: 'apps', description: '', link: '', imageUrl: '' }); }} style={{ marginLeft: '1rem', background: 'transparent', border: '1px solid #ccc', padding: '1rem', borderRadius: '8px', cursor: 'pointer' }}>Cancel Edit</button>}
@@ -323,14 +318,6 @@ export default function Dashboard() {
                 <label>Article Content</label>
                 <textarea placeholder="Write your article here..." required style={{ minHeight: '200px' }} value={articleData.content} onChange={e => setArticleData({...articleData, content: e.target.value})}></textarea>
               </div>
-                            <div className="admin-form-group">
-                <label>Image URL (Optional)</label>
-                <input type="url" placeholder="https://example.com/image.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
-              </div>
-                            <div className="admin-form-group">
-                <label>Image URL (Optional)</label>
-                <input type="url" placeholder="https://example.com/image.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
-              </div>
               <button type="submit" className="admin-btn" disabled={loading}>{loading ? 'Publishing...' : editingArticleId ? 'Update Article' : 'Publish Article'}</button>
               {editingArticleId && <button onClick={() => { setEditingArticleId(null); setArticleData({ title: '', category: 'Company Update', content: '' }); }} style={{ marginLeft: '1rem', background: 'transparent', border: '1px solid #ccc', padding: '1rem', borderRadius: '8px', cursor: 'pointer' }}>Cancel Edit</button>}
             </form>
@@ -364,11 +351,10 @@ export default function Dashboard() {
           </div>
         )}
 
-                {activeTab === 'social' && (
+        {activeTab === 'social' && (
           <div className="admin-card">
             <h2>Social Media Links</h2>
             <p style={{ color: 'var(--steel-blue)', marginBottom: '2rem' }}>Enter your social media profile URLs. Leave blank to hide the icon on the website.</p>
-            
             <form onSubmit={handleSaveSocials} style={{ background: 'var(--surface)', padding: '2rem', borderRadius: '12px' }}>
               <div className="admin-form-group">
                 <label>Facebook URL</label>
@@ -390,14 +376,6 @@ export default function Dashboard() {
                 <label>TikTok URL</label>
                 <input type="url" placeholder="https://tiktok.com/@..." value={socialData.tiktok || ''} onChange={e => setSocialData({...socialData, tiktok: e.target.value})} />
               </div>
-                            <div className="admin-form-group">
-                <label>Image URL (Optional)</label>
-                <input type="url" placeholder="https://example.com/image.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
-              </div>
-                            <div className="admin-form-group">
-                <label>Image URL (Optional)</label>
-                <input type="url" placeholder="https://example.com/image.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
-              </div>
               <button type="submit" className="admin-btn" disabled={loading}>{loading ? 'Saving...' : 'Save Social Links'}</button>
             </form>
           </div>
@@ -417,8 +395,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-
-
-
-
