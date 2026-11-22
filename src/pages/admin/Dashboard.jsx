@@ -248,6 +248,10 @@ export default function Dashboard() {
                 <label>Image URL (Optional)</label>
                 <input type="url" placeholder="https://example.com/image.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
               </div>
+                            <div className="admin-form-group">
+                <label>Image URL (Optional)</label>
+                <input type="url" placeholder="https://example.com/image.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
+              </div>
               <button type="submit" className="admin-btn" disabled={loading}>{loading ? 'Saving...' : editingProductId ? 'Update Project' : 'Add Project'}</button>
               {editingProductId && <button onClick={() => { setEditingProductId(null); setFormData({ title: '', category: 'apps', description: '', link: '', imageUrl: '' }); }} style={{ marginLeft: '1rem', background: 'transparent', border: '1px solid #ccc', padding: '1rem', borderRadius: '8px', cursor: 'pointer' }}>Cancel Edit</button>}
             </form>
@@ -323,6 +327,10 @@ export default function Dashboard() {
                 <label>Image URL (Optional)</label>
                 <input type="url" placeholder="https://example.com/image.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
               </div>
+                            <div className="admin-form-group">
+                <label>Image URL (Optional)</label>
+                <input type="url" placeholder="https://example.com/image.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
+              </div>
               <button type="submit" className="admin-btn" disabled={loading}>{loading ? 'Publishing...' : editingArticleId ? 'Update Article' : 'Publish Article'}</button>
               {editingArticleId && <button onClick={() => { setEditingArticleId(null); setArticleData({ title: '', category: 'Company Update', content: '' }); }} style={{ marginLeft: '1rem', background: 'transparent', border: '1px solid #ccc', padding: '1rem', borderRadius: '8px', cursor: 'pointer' }}>Cancel Edit</button>}
             </form>
@@ -386,6 +394,10 @@ export default function Dashboard() {
                 <label>Image URL (Optional)</label>
                 <input type="url" placeholder="https://example.com/image.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
               </div>
+                            <div className="admin-form-group">
+                <label>Image URL (Optional)</label>
+                <input type="url" placeholder="https://example.com/image.png" value={formData.imageUrl || ''} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
+              </div>
               <button type="submit" className="admin-btn" disabled={loading}>{loading ? 'Saving...' : 'Save Social Links'}</button>
             </form>
           </div>
@@ -405,6 +417,7 @@ export default function Dashboard() {
     </div>
   );
 }
+
 
 
 
