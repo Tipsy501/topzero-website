@@ -1,0 +1,33 @@
+﻿.portfolio-hero { background: var(--navy-900); color: var(--white); padding: 8rem 2rem 4rem; text-align: center; }
+.portfolio-hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; }
+.portfolio-hero p { font-size: 1.2rem; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+
+.portfolio-section { padding: 4rem 2rem; background: var(--surface); min-height: 60vh; }
+.portfolio-container { max-width: 1200px; margin: 0 auto; }
+
+.filter-tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
+.filter-btn {
+  background: var(--white); border: 1px solid #ddd; padding: 0.6rem 1.5rem;
+  border-radius: 50px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  color: var(--steel-blue);
+}
+.filter-btn:hover { border-color: var(--teal-accent); color: var(--teal-accent); }
+.filter-btn.active { background: var(--navy-900); color: var(--white); border-color: var(--navy-900); }
+
+.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+.portfolio-card {
+  background: var(--white); border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease;
+  display: flex; flex-direction: column;
+}
+.portfolio-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(1,22,53,0.1); }
+.card-image {
+  height: 180px; background: var(--surface); display: flex; align-items: center; justify-content: center;
+  border-bottom: 1px solid #eee;
+}
+.card-image-placeholder { font-size: 4rem; font-weight: 800; color: var(--navy-700); opacity: 0.1; }
+.card-content { padding: 2rem; display: flex; flex-direction: column; flex-grow: 1; }
+.card-category { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--teal-accent); margin-bottom: 0.5rem; }
+.card-title { font-size: 1.4rem; color: var(--navy-900); margin-bottom: 0.8rem; font-weight: 700; }
+.card-desc { color: var(--steel-blue); font-size: 0.95rem; line-height: 1.6; flex-grow: 1; margin-bottom: 1.5rem; }
+.card-links { display: flex; gap: 1rem; }

@@ -1,0 +1,23 @@
+﻿.innovation-page { background: var(--surface); min-height: 100vh; }
+.innovation-hero { background: var(--navy-900); color: var(--white); padding: 10rem 2rem 6rem; text-align: center; }
+.innovation-hero h1 { font-size: 4rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+.innovation-hero p { font-size: 1.3rem; opacity: 0.8; max-width: 700px; margin: 0 auto; line-height: 1.6; }
+
+.innovation-section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+.innovation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 6rem; }
+.innovation-grid.reverse { direction: rtl; }
+.innovation-grid.reverse .innovation-text { direction: ltr; }
+.innovation-text h2 { font-size: 2.5rem; color: var(--navy-900); margin-bottom: 1.5rem; line-height: 1.1; }
+.innovation-text p { font-size: 1.1rem; color: var(--steel-blue); line-height: 1.8; margin-bottom: 2rem; }
+.innovation-img { border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+.innovation-img img { width: 100%; height: 400px; object-fit: cover; display: block; }
+
+.african-innovation-banner { background: var(--teal-accent); color: var(--white); padding: 6rem 2rem; text-align: center; border-radius: 20px; margin: 0 2rem 6rem; }
+.african-innovation-banner h2 { font-size: 3rem; margin-bottom: 1rem; color: var(--white); }
+.african-innovation-banner p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  .innovation-grid, .innovation-grid.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2rem; }
+  .innovation-hero h1 { font-size: 2.5rem; }
+  .innovation-img img { height: 250px; }
+}

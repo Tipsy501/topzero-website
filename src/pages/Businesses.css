@@ -1,0 +1,12 @@
+﻿.business-list { display: flex; flex-direction: column; gap: 6rem; }
+.business-item { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.business-item.reverse { direction: rtl; }
+.business-item.reverse .business-info { direction: ltr; }
+.business-img img { width: 100%; height: 400px; object-fit: cover; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+.business-info h2 { font-size: 2.5rem; color: var(--navy-900); margin-bottom: 1.5rem; line-height: 1.1; }
+.business-info p { font-size: 1.1rem; color: var(--steel-blue); line-height: 1.8; }
+
+@media (max-width: 768px) {
+  .business-item, .business-item.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2rem; }
+  .business-img img { height: 250px; }
+}
