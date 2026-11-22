@@ -1,4 +1,5 @@
-﻿import './About.css';
+﻿import { Helmet } from 'react-helmet-async';
+import './About.css';
 
 export default function About() {
   return (
@@ -52,4 +53,5 @@ export default function About() {
     </div>
   );
 }
+
 

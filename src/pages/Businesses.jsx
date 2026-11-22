@@ -1,8 +1,13 @@
-﻿import './Businesses.css';
+﻿import { Helmet } from 'react-helmet-async';
+import './Businesses.css';
 
 export default function Businesses() {
   return (
     <div>
+      <Helmet>
+        <title>Our Businesses | TopZero Group</title>
+        <meta name='description' content='Explore TopZero Group business divisions: Technology & AI, Digital Products, Gabolekwe Farms, and Munyu Fine Salt.' />
+      </Helmet>
       <section className="page-hero">
         <div className="container">
           <h1>Our Businesses</h1>
@@ -62,3 +67,4 @@ export default function Businesses() {
     </div>
   );
 }
+

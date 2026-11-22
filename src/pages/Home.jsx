@@ -1,9 +1,14 @@
 ﻿import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import './Home.css';
 
 export default function Home() {
   return (
     <div>
+      <Helmet>
+        <title>TopZero Group | Building Tomorrow, Today.</title>
+        <meta name='description' content='TopZero Group builds innovative businesses, digital products and practical solutions designed to create lasting value in Africa and beyond.' />
+      </Helmet>
       {/* Premium Hero */}
       <section className="hero">
         <div className="hero-bg"></div>
@@ -83,3 +88,4 @@ export default function Home() {
     </div>
   );
 }
+
