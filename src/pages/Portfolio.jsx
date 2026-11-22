@@ -45,8 +45,12 @@ export default function Portfolio() {
             <div className="portfolio-grid">
               {filteredData.map(item => (
                 <div key={item.id} className="portfolio-card">
-                  <div className="card-image">
-                    <span className="card-image-placeholder">{item.title ? item.title.charAt(0) : '?'}</span>
+                  <div className="card-image" style={{ overflow: 'hidden', position: 'relative' }}>
+                    {item.imageUrl ? (
+                      <img src={item.imageUrl} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: 0, left: 0 }} />
+                    ) : (
+                      <span className="card-image-placeholder">{item.title ? item.title.charAt(0) : '?'}</span>
+                    )}
                   </div>
                   <div className="card-content">
                     <span className="card-category">
@@ -78,3 +82,4 @@ export default function Portfolio() {
     </div>
   );
 }
+

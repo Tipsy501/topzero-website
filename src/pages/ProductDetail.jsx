@@ -34,6 +34,9 @@ export default function ProductDetail() {
         <Link to="/portfolio" style={{ color: 'var(--teal-accent)', marginBottom: '2rem', display: 'inline-block' }}>&larr; Back to Portfolio</Link>
         
         <div style={{ background: 'white', padding: '4rem', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.05)' }}>
+          {product.imageUrl && (
+            <img src={product.imageUrl} alt={product.title} style={{ width: '100%', height: '350px', objectFit: 'cover', borderRadius: '16px', marginBottom: '2rem' }} />
+          )}
           <span className="card-category">{product.category === 'apps' ? 'Published App' : product.category === 'products' ? 'Live Product' : 'In Development'}</span>
           <h1 style={{ fontSize: '3rem', color: 'var(--navy-900)', margin: '1rem 0' }}>{product.title}</h1>
           <p style={{ fontSize: '1.2rem', color: 'var(--steel-blue)', lineHeight: '1.8', marginBottom: '3rem' }}>
@@ -50,3 +53,4 @@ export default function ProductDetail() {
     </div>
   );
 }
+
