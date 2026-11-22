@@ -187,22 +187,46 @@ export default function Dashboard() {
           </div>
         )}
 
-        {activeTab === 'overview' && (
-          <div className="admin-card">
-            <h2>Welcome Back, Gabolekwe</h2>
-            <p style={{ color: 'var(--steel-blue)', lineHeight: '1.6' }}>
-              This is your command center. From here, you can manage your portfolio, read messages from clients, and update your website content. 
-            </p>
-          </div>
-        )}
+                {activeTab === 'overview' && (
+          <div>
+            {/* STATS GRID */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+              <div className="admin-card" style={{ borderLeft: '4px solid var(--teal-accent)' }}>
+                <h3 style={{ color: 'var(--steel-blue)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem' }}>Portfolio Items</h3>
+                <p style={{ fontSize: '2.5rem', fontWeight: '800', color: 'var(--navy-900)' }}>{products.length}</p>
+              </div>
+              <div className="admin-card" style={{ borderLeft: '4px solid var(--teal-accent)' }}>
+                <h3 style={{ color: 'var(--steel-blue)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem' }}>Published Articles</h3>
+                <p style={{ fontSize: '2.5rem', fontWeight: '800', color: 'var(--navy-900)' }}>{articles.length}</p>
+              </div>
+              <div className="admin-card" style={{ borderLeft: '4px solid var(--teal-accent)' }}>
+                <h3 style={{ color: 'var(--steel-blue)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem' }}>Total Enquiries</h3>
+                <p style={{ fontSize: '2.5rem', fontWeight: '800', color: 'var(--navy-900)' }}>{enquiries.length}</p>
+              </div>
+            </div>
 
-        {activeTab === 'portfolio' && (
-          <div className="admin-card">
-            <h2>Manage Portfolio</h2>
-            <form onSubmit={handleAddProduct} style={{ background: 'var(--surface)', padding: '2rem', borderRadius: '12px', marginBottom: '3rem' }}>
-              <div className="admin-form-group">
-                <label>Project Title</label>
-                <input type="text" placeholder="e.g. BeCom Bible" required value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} />
+            {/* RECENT ACTIVITY */}
+            <div className="admin-card">
+              <h2>Recent Enquiries</h2>
+              {enquiries.length === 0 ? (
+                <p style={{ color: 'var(--steel-blue)' }}>No enquiries yet. When someone uses the contact form, it will appear here.</p>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+                  {enquiries.slice(0, 3).map(msg => (
+                    <div key={msg.id} style={{ borderLeft: '3px solid var(--teal-accent)', paddingLeft: '1rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                        <strong>{msg.name}</strong>
+                        <span style={{ fontSize: '0.8rem', color: '#666' }}>{msg.email}</span>
+                      </div>
+                      <p style={{ color: 'var(--steel-blue)', fontSize: '0.95rem' }}>{msg.message.substring(0, 100)}...</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <button onClick={() => setActiveTab('messages')} style={{ marginTop: '1.5rem', background: 'transparent', border: 'none', color: 'var(--teal-accent)', fontWeight: 'bold', cursor: 'pointer' }}>View all enquiries &rarr;</button>
+            </div>
+          </div>
+        )} />
               </div>
               <div className="admin-form-group">
                 <label>Category</label>
@@ -369,4 +393,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
 
