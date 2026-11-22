@@ -57,7 +57,7 @@ export default function Portfolio() {
                       {item.category === 'apps' ? 'Published App' : item.category === 'products' ? 'Live Product' : 'In Development'}
                     </span>
                     <h3 className="card-title">{item.title}</h3>
-                    <p className="card-desc">{item.description}</p>
+                    <p className="card-desc">{item.description && item.description.length > 120 ? item.description.substring(0, 120) + "..." : item.description}</p>
                     <div className="card-links">
                       {item.link ? (
                         <a href={item.link} target="_blank" rel="noreferrer" className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
@@ -82,6 +82,7 @@ export default function Portfolio() {
     </div>
   );
 }
+
 
 
 
