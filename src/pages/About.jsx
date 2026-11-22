@@ -28,7 +28,7 @@ export default function About() {
             </p>
           </div>
           <div className="about-founder">
-            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=600&auto=format&fit=crop" alt="Gabolekwe Topo Gabolekwe" className="founder-img" />
+            <img src="/assets/brand/founder.png" alt="Gabolekwe Topo Gabolekwe" className="founder-img" />
             <h3>Gabolekwe Topo Gabolekwe</h3>
             <p className="founder-title">Founder & CEO</p>
           </div>
@@ -52,3 +52,4 @@ export default function About() {
     </div>
   );
 }
+
